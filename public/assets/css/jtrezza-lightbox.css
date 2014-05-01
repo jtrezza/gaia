@@ -1,0 +1,30 @@
+.jtrezza-cerrar{
+	float: right; 
+	cursor:pointer;
+}
+.jtrezza-lightbox{
+	border: solid 1px #C4C4C4;
+	border-radius: 0.5em;
+	height: 215px;
+	width:500px;
+}
+.jtrezza-lightbox-title{
+	background-color: #FAFAFA;
+	border-bottom: solid 1px #CECECE;
+	color: #777;
+	font-size: 1.2em;
+	height:2.5em;
+	padding: 10px;
+	text-align: center;	
+}
+.jtrezza-lightbox-content{
+	background-color: #EDF4F7;
+	padding: 15px;
+}
+.jtrezza-lightbox-content textarea{	
+	border-radius: 10px;
+	height: 7em;
+	margin-bottom: 10px;
+	resize:none;
+	width: 470px;
+}
