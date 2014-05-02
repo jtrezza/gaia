@@ -29,3 +29,6 @@ function postear()
             }
     }, 'json');
 }
+function onTemplatesLoaded(){
+	console.log('Templates are loaded.');
+}

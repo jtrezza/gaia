@@ -18,6 +18,7 @@
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/js/global.js')}}"></script>
     <script src="{{asset('assets/js/jtrezza.lightBox.js')}}"></script>
+    <script src="{{asset('assets/js/templates.js')}}"></script>
     @yield('head')
     <style type="text/css">
       .jumbotron{
