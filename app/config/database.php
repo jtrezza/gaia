@@ -57,7 +57,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'gaia',
 			'username'  => 'root',
-			'password'  => '',
+			'password'  => 'ETPwTAUEd5',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
