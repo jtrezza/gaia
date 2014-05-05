@@ -118,16 +118,33 @@ class UserController extends \BaseController {
 		$action = 'follow';
 
 		if(Auth::user()->isFollowingByUsername($username)){
-			return 'lo sigue';
-		}else{
-			return 'no lo sigue';
-		}
-		
-		if(Auth::user()->isFollowingByUsername($username)){
 			$texto = 'Dejar de seguir';
 			$action = 'unfollow';
+		}else if (Auth::user()->username == $username){
+			$texto = 'Editar perfil';
+			$action = 'edit_profile';
 		}
-		return $texto;
-		//return View::make('users/profile', array('username'=>$username));
+		
+		return View::make('users.profile', array('username'=>$username, 'text'=>$texto, 'action'=>$action));
+	}
+	
+	public function follow($username)
+	{
+	    if(!Auth::user()->isFollowingByUsername($username) && Auth::user()->username != $username){
+	        Auth::user()->follow($username);
+			return Redirect::to('profile/'.$username);
+		}else{
+		    return Redirect::to('profile/'.$username);
+		}
+	}
+	
+	public function unfollow($username)
+	{
+	    if(Auth::user()->isFollowingByUsername($username)){
+	        Auth::user()->unfollow($username);
+			return Redirect::to('profile/'.$username);
+		}else{
+		    return Redirect::to('profile/'.$username);
+		}
 	}
 }

@@ -37,10 +37,9 @@ Route::group(array('before' => 'auth'), function()
     Route::post('posts', 'PostController@store');
     //Búsqueda de usuarios
     Route::post('users/search', 'UserController@search');
-});
-
-Route::get('/prompt', function(){
-	return View::make('prompt');
+    
+    Route::get('users/follow/{username}', 'UserController@follow');
+    Route::get('users/unfollow/{username}', 'UserController@unfollow');
 });
 
 Route::get('profile/{username}', 'UserController@profile');

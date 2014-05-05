@@ -23,11 +23,11 @@ if(!$user){
 	    		<span class="destacado">125</span>
 	    		<span class="gris">Seguidores</span>
 	    		<span class="destacado">60</span>
-	    		<button class="btn btn-default" style="float:right;" onclick="{{$action}}('{{$user->username}}');">{{$texto}}</button>
+	    		<a class="btn btn-default" style="float:right;" href="<?php echo url('users/'.$action,$user->username) ?>">{{$text}}</a>
 	    	</p>
 	    	<?php $posts = Post::with('user')->where('user_id','=',$user->id)->orderBy('created_at', 'desc')->take(15)->get(); ?>
 	    	@foreach ($posts as $p)
-	    		@include('include/post', array('post'=>$p))
+	    		@include('posts/post', array('post'=>$p))
 	    	@endforeach
 	  	</div>
     </div>

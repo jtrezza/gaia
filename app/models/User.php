@@ -6,7 +6,8 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public $errors;
-	protected $fillable = array('username','email','fullname','bio','location','website','password','profile_picture');
+	protected $fillable = array('username','email','fullname','bio','location',
+	    'website','password','profile_picture','following','followed','favorites');
 
 	public function isValid($data)
     {
@@ -155,7 +156,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		}
 	}
 
-	public function getIsFollowingByIdAttribute($id)
+	public function isFollowingById($id)
 	{
 		$usuario = User::where('id','=',$id)->first();
 		if(!$usuario){
@@ -174,5 +175,30 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			$following = unserialize($this->following);
 		}
 		return $following;
+	}
+	
+	public function follow($username)
+	{
+	    $usuario = User::where('username','=',$username)->first();
+	    if(!$usuario){
+	        return false;
+	    }
+	    $following = $this->followingArray;
+	    $following[] = $username;
+	    
+	    $this->following = serialize($following);
+	    $this->save();
+	}
+	
+	public function unfollow($username)
+	{
+	    $following = $this->followingArray;
+	    
+	    if(array_search($username, $following) !== false){
+	        $pos = array_search($username, $following);
+	        array_splice($following, $pos, 1);
+	        $this->following = serialize($following);
+	        $this->save();
+	    }
 	}
 }
