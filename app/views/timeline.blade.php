@@ -10,9 +10,7 @@
 	<div class="row zero-all">
 	    <div class="col-md-6 col-md-offset-3 text-center" id="contenedor">
 	    	<h3 class="text-left gris">Publicaciones</h3>
-	    	<?php 
-	    	
-	    	    $posts = Post::with('user')->where('user_id','=',Auth::user()->id)->orderBy('created_at', 'desc')->take(15)->get(); ?>
+	    	<?php $posts = Post::timeline(Auth::user()); ?>
 	    	
 	    	@foreach ($posts as $p)
 	    		@include('posts.post', array('p'=>$p))

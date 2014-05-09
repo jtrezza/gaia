@@ -5,7 +5,7 @@
 	<div class="col-md-10 text-left texto-post">
 		<b><a href="{{url("profile/$user->username")}}">{{ $user->fullname }}</a></b>
 		&nbsp;<span class="gris">@<?php echo $user->username ?></span>
-		<p>{{ $user->bio }}<button class="btn btn-defulat" style="float:right">Seguir</button>	</p>
+		<p>{{ $user->bio }}<a class="btn btn-default" style="float:right" href="{{url('profile',$user->username) }}">Ver perfil</a>	</p>
 
 	</div>
 </div>

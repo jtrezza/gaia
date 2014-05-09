@@ -124,14 +124,25 @@ class UserController extends \BaseController {
 			$texto = 'Editar perfil';
 			$action = 'edit_profile';
 		}
+		$user = User::where('username', $username)->first();
+        if(!$user){
+        	App::abort(404);
+        }
+        $following_count = count($user->followingArray);
+        $followed_count = count($user->followedArray);
+        $posts_count = Post::where('user_id', $user->id)->count();
 		
-		return View::make('users.profile', array('username'=>$username, 'text'=>$texto, 'action'=>$action));
+		return View::make('users.profile', array('username'=>$username, 'text'=>$texto, 'action'=>$action, 'following_count' => $following_count, 'followed_count' => $followed_count, 'posts_count'=>$posts_count));
 	}
 	
 	public function follow($username)
 	{
 	    if(!Auth::user()->isFollowingByUsername($username) && Auth::user()->username != $username){
 	        Auth::user()->follow($username);
+	        $user = User::where('username', $username)->first();
+	        if($user){
+	            $user->be_followed(Auth::user());
+	        }
 			return Redirect::to('profile/'.$username);
 		}else{
 		    return Redirect::to('profile/'.$username);
@@ -142,6 +153,11 @@ class UserController extends \BaseController {
 	{
 	    if(Auth::user()->isFollowingByUsername($username)){
 	        Auth::user()->unfollow($username);
+	        
+	        $user = User::where('username', $username)->first();
+	        if($user){
+	            $user->be_unfollowed(Auth::user());
+	        }
 			return Redirect::to('profile/'.$username);
 		}else{
 		    return Redirect::to('profile/'.$username);

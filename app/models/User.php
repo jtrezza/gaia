@@ -139,7 +139,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function isFollowing(User $user)
 	{
-		if(in_array($user->username, $this->followingArray)) {
+		if(in_array($user->id, $this->followingArray)) {
 			return true;
 		}else{
 			return false;
@@ -166,12 +166,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		}
 	}
 
+    public function getFollowedArrayAttribute()
+	{
+		$followed = array();
+		if($this->followed != '' && !is_null($this->followed))
+		{
+			$followed = unserialize($this->followed);
+		}
+		return $followed;
+	}
+	
 	public function getFollowingArrayAttribute()
 	{
 		$following = array();
 		if($this->following != '' && !is_null($this->following))
 		{
-
 			$following = unserialize($this->following);
 		}
 		return $following;
@@ -179,25 +188,55 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	
 	public function follow($username)
 	{
-	    $usuario = User::where('username','=',$username)->first();
-	    if(!$usuario){
+	    $user = User::where('username',$username)->first();
+	    if(!$user){
 	        return false;
 	    }
 	    $following = $this->followingArray;
-	    $following[] = $username;
+	    $following[] = $user->id;
 	    
 	    $this->following = serialize($following);
 	    $this->save();
 	}
 	
+	public function be_followed(User $user)
+	{
+	    //$user = User::where('username',$username)->first();
+	    if(!$user){
+	        return false;
+	    }
+	    $followed = $this->followedArray;
+	    $followed[] = $user->id;
+	    
+	    $this->followed = serialize($followed);
+	    $this->save();
+	}
+	
 	public function unfollow($username)
 	{
+	    $user = User::where('username',$username)->first();
 	    $following = $this->followingArray;
 	    
-	    if(array_search($username, $following) !== false){
-	        $pos = array_search($username, $following);
+	    if(array_search($user->id, $following) !== false){
+	        $pos = array_search($user->id, $following);
 	        array_splice($following, $pos, 1);
 	        $this->following = serialize($following);
+	        $this->save();
+	    }
+	}
+	
+	public function be_unfollowed(User $user)
+	{
+	    //$user = User::where('username',$username)->first();
+	    if(!$user){
+	        return false;
+	    }
+	    $followed = $this->followedArray;
+	    
+	    if(array_search($user->id, $followed) !== false){
+	        $pos = array_search($user->id, $followed);
+	        array_splice($followed, $pos, 1);
+	        $this->followed = serialize($followed);
 	        $this->save();
 	    }
 	}

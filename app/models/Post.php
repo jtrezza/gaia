@@ -45,4 +45,11 @@ class Post extends Eloquent
 		}
 		
     }
+    
+    public function scopeTimeline($query, User $user)
+    {
+    	$following = $user->followingArray;
+    	$following[] = $user->id;
+    	return $query->whereIn('user_id', $following)->orderBy('created_at', 'desc')->take(20)->get();
+    }
 }

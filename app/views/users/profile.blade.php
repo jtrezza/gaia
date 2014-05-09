@@ -5,7 +5,6 @@ if(!$user){
 	App::abort(404);
 }
 
-
 ?>
 @section('title') {{$user->fullname}} @stop
 @section('content')
@@ -18,11 +17,11 @@ if(!$user){
 			<hr />
 	    	<p class="text-left" style="margin-bottom:2.5em;">
 	    		<span class="gris">Publicaciones</span>
-	    		<span class="destacado">35</span>
+	    		<span class="destacado">{{$posts_count}}</span>
 	    		<span class="gris">Siguendo</span>
-	    		<span class="destacado">125</span>
+	    		<span class="destacado">{{$following_count}}</span>
 	    		<span class="gris">Seguidores</span>
-	    		<span class="destacado">60</span>
+	    		<span class="destacado">{{$followed_count}}</span>
 	    		<a class="btn btn-default" style="float:right;" href="<?php echo url('users/'.$action,$user->username) ?>">{{$text}}</a>
 	    	</p>
 	    	<?php $posts = Post::with('user')->where('user_id','=',$user->id)->orderBy('created_at', 'desc')->take(15)->get(); ?>
