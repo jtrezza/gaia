@@ -15,10 +15,10 @@
     
     <!-- jQuery & Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/js/global.js')}}"></script>
     <script src="{{asset('assets/js/jtrezza.lightBox.js')}}"></script>
-    <script src="{{asset('assets/js/templates.js')}}"></script>
     @yield('head')
     <style type="text/css">
       .jumbotron{
@@ -28,7 +28,7 @@
   </head>
 
   <body>
-    
+    <!-- <div style="height: 50px; background-color: #428bca; text-align:center; vertical-align: middle; color: #FFF !important; font-size:30pt 16pt !important; font-weight:bold; padding-top:15px;">¡Feliz cumpleaños Kathe!</div> -->
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -64,7 +64,8 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cuenta <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Editar</a></li>
+                <li><a href="#">Editar perfil</a></li>
+                <li><a href="#" onclick="requestNotificationPermission()">Activar notif. de escritorio</a></li>
                 <li><a href="{{url('/logout')}}">Salir</a></li>
               </ul>              
             </li>

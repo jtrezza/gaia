@@ -99,6 +99,21 @@ class PostController extends \BaseController {
 	{
 		//
 	}
-
+    
+    public function new_posts()
+    {
+        $last = Input::get('ultimo_post');
+        $user_id = Input::get('user_id');
+        $user = User::find($user_id);
+        
+        if($user){
+            $coleccion = Post::timeline($user, $last);
+            $nuevos  = $coleccion->toArray();
+            
+            return json_encode($nuevos);
+        }else{
+            return json_enconde(array());
+        }
+    }
 
 }

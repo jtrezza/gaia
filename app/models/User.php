@@ -12,7 +12,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function isValid($data)
     {
         $rules = array(
-        	'username'		=> 'required|max:50|regex:/^([a-z0-0_])+$/i|unique:users',
+        	'username'		=> 'required|max:50|regex:/^([\w\d_]+)$/i|unique:users',
             'email'     => 'required|email|max:120|unique:users',
             'fullname' 	=> 'required|min:4|max:255',
             'password'  => 'min:6|confirmed',

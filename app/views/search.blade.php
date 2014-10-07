@@ -7,7 +7,7 @@
 	    	<h3 class="text-left gris">Búsqueda: {{$busqueda}}</h3>
 	    	<?php $users = User::where('fullname','like',"%$busqueda%")->orWhere('username','like',"%$busqueda%")->take(15)->get(); ?>
 	    	@foreach ($users as $u)
-	    		@include('include/user', array('user'=>$u))
+	    		@include('users/user_include', array('user'=>$u))
 	    	@endforeach
 	  	</div>
     </div>
